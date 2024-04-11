@@ -3,15 +3,17 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.8.34601.278
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ir.domain", "ir.domain\ir.domain.csproj", "{4A99D7D7-91D9-4F36-AA7B-B2746E81D453}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ir.domain", "ir.domain\ir.domain.csproj", "{4A99D7D7-91D9-4F36-AA7B-B2746E81D453}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ir.shared", "ir.shared\ir.shared.csproj", "{77E1F44E-A558-4D6E-8C3A-C7B668CC8D14}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ir.shared", "ir.shared\ir.shared.csproj", "{77E1F44E-A558-4D6E-8C3A-C7B668CC8D14}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ir.Persistance", "Ir.Persistance\Ir.Persistance.csproj", "{B42E3B95-18FE-452B-A719-3BFD39F942A2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Ir.Persistance", "Ir.Persistance\Ir.Persistance.csproj", "{B42E3B95-18FE-452B-A719-3BFD39F942A2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IR.Api", "IR.Api\IR.Api.csproj", "{220921B8-E94A-459F-8052-2B97A386D066}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IR.Api", "IR.Api\IR.Api.csproj", "{220921B8-E94A-459F-8052-2B97A386D066}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ir.infrastructure", "ir.infrastructure\ir.infrastructure.csproj", "{5DB9AE07-49E3-446D-A5B2-CFD30C565DC0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ir.infrastructure", "ir.infrastructure\ir.infrastructure.csproj", "{5DB9AE07-49E3-446D-A5B2-CFD30C565DC0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CRMWeb", "CRMWeb\CRMWeb.csproj", "{FC7FFA62-601E-4293-8B6D-F24814168E26}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -39,6 +41,10 @@ Global
 		{5DB9AE07-49E3-446D-A5B2-CFD30C565DC0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5DB9AE07-49E3-446D-A5B2-CFD30C565DC0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5DB9AE07-49E3-446D-A5B2-CFD30C565DC0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FC7FFA62-601E-4293-8B6D-F24814168E26}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FC7FFA62-601E-4293-8B6D-F24814168E26}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FC7FFA62-601E-4293-8B6D-F24814168E26}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FC7FFA62-601E-4293-8B6D-F24814168E26}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
