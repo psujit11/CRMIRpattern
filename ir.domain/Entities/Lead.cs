@@ -1,9 +1,5 @@
 ﻿using ir.shared;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.ComponentModel.DataAnnotations;
 
 namespace ir.domain.Entities
 {
@@ -11,6 +7,9 @@ namespace ir.domain.Entities
     {
 
         public int CustomerId { get; set; }
+        [Required]
+        [StringLength(100, MinimumLength = 2, ErrorMessage = "lead name must be between 2 and 100 characters long.")]
+        [RegularExpression(@"^[a-zA-Z_\s] +$", ErrorMessage = "lead name can only contain letters , underscore and spaces.")]
         public string LeadName { get; set; }    
         public Customer Customer { get; set; }
 
