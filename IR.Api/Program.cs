@@ -25,7 +25,7 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
-
+#region Customer
 app.MapGet("/customers", async (ICustomerService customerService) =>
 {
     return await customerService.GetAllAsync();
@@ -56,12 +56,9 @@ app.MapGet("/customers/{id}/leads", async (ICustomerService customerService, int
 {
     return await customerService.GetLeadsofCustomersByIdAsync(id);
 });
+#endregion
 
-
-
-
-
-
+#region Lead
 app.MapGet("/leads", async (ILeadService leadService) =>
 {
     return await leadService.GetAllAsync();
@@ -97,7 +94,9 @@ app.MapPut("/leads/{id}/status", async (ILeadService leadService, int id, Update
     await leadService.UpdateLeadStatus(updateDto);
     return Results.Ok();
 });
+#endregion 
 
+#region Opportunity
 // Opportunity API Endpoints
 app.MapGet("/opportunities", async (IOpportunityService opportunityService) =>
 {
@@ -124,6 +123,8 @@ app.MapDelete("/opportunities/{id}", async (IOpportunityService opportunityServi
     await opportunityService.DeleteAsync(id);
     return Results.Ok();
 });
+#endregion
+
 app.Run();
 
 
