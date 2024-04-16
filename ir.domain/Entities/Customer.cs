@@ -14,7 +14,7 @@ namespace ir.domain.Entities
         [DataType(DataType.EmailAddress)]
         public string Email { get; set; }
         [Required]
-        [MobileNumber]
+        
         public string MobileNumber { get; set; }
         [Required]
         public string Company { get; set; }

@@ -1,9 +1,10 @@
 ﻿using AutoMapper;
+using FluentValidation;
 using ir.domain.Entities;
 using ir.infrastructure.DTOs.CustomerDtos;
 using ir.infrastructure.DTOs.LeadDtos;
-using ir.infrastructure.DTOs.OpportunityDtos;
 using ir.infrastructure.Repo.Infrastructure;
+using ir.infrastructure.Validation;
 using Ir.Persistance;
 using Microsoft.EntityFrameworkCore;
 
@@ -13,15 +14,26 @@ namespace ir.infrastructure.Repo.Services
     {
         private readonly AppDbContext _dbContext;
         private readonly Mapper _mapper;
+        private readonly IValidator<Customer> _validator;
 
-        public CustomerService(AppDbContext dbContext, IMapper mapper)
+        public CustomerService(AppDbContext dbContext, IMapper mapper , IValidator<Customer> validator)
         {
             _dbContext = dbContext;
             _mapper = (Mapper)mapper;
+            _validator = validator;
         }
+        
+
         public async Task<CustomerGetDto> AddAsync(CustomerCreateDto createDto)
         {
             var customer = _mapper.Map<Customer>(createDto);
+            var validator = new CustomerValidator(_dbContext);
+            var validationResult =await validator.ValidateAsync(customer);
+
+            if (!validationResult.IsValid)
+            {
+                throw new FluentValidation.ValidationException(validationResult.Errors);
+            }
             _dbContext.Customers.Add(customer);
             await _dbContext.SaveChangesAsync();
             return _mapper.Map<CustomerGetDto>(customer);
@@ -75,6 +87,12 @@ namespace ir.infrastructure.Repo.Services
             if (customer == null)
             {
                 throw new Exception($"No Customer with given {id}");
+            }
+            var validator = new CustomerValidator(_dbContext);
+            var validationResult = await validator.ValidateAsync(_mapper.Map(updateDto, customer));
+            if (!validationResult.IsValid)
+            {
+                throw new FluentValidation.ValidationException(validationResult.Errors);
             }
             _mapper.Map(updateDto, customer);
             await _dbContext.SaveChangesAsync();

@@ -18,7 +18,7 @@ namespace ir.infrastructure.DTOs.CustomerDtos
         public string Email { get; set; }
 
         [Required]
-        [MobileNumber]
+        
         public double MobileNumber { get; set; }
 
         [Required]

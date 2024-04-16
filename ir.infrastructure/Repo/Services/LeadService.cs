@@ -1,8 +1,10 @@
 ﻿using AutoMapper;
+using FluentValidation;
 using ir.domain.Entities;
 using ir.infrastructure.DTOs.LeadDtos;
 using ir.infrastructure.DTOs.OpportunityDtos;
 using ir.infrastructure.Repo.Infrastructure;
+using ir.infrastructure.Validation;
 using Ir.Persistance;
 using Microsoft.EntityFrameworkCore;
 
@@ -12,14 +14,23 @@ namespace ir.infrastructure.Repo.Services
     {
         private readonly AppDbContext _dbContext;
         private readonly Mapper _mapper;
-        public LeadService(AppDbContext dbContext, IMapper mapper)
+        private readonly IValidator<Lead> _validator;
+        public LeadService(AppDbContext dbContext, IMapper mapper,IValidator<Lead> validator)
         {
             _dbContext = dbContext;
             _mapper = (Mapper)mapper;
+            _validator = validator;
         }
         public async Task<LeadGetDto> AddAsync(LeadCreateDto createDto)
         {
             var lead = _mapper.Map<Lead>(createDto);
+            var validator = new LeadValidator();
+            var validationResult = validator.Validate(lead);
+
+            if (!validationResult.IsValid)
+            {
+                throw new FluentValidation.ValidationException(validationResult.Errors);
+            }
             _dbContext.Leads.Add(lead);
             await _dbContext.SaveChangesAsync();
             return _mapper.Map<LeadGetDto>(lead);
