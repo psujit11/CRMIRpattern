@@ -15,11 +15,24 @@ namespace CRMWeb.Controllers
 
         public IActionResult Index()
         {
+            ViewBag.FullPageIntro = true;
+            ViewBag.RenderCarousel = false;
             return View();
         }
 
-        public IActionResult Privacy()
+        public IActionResult AboutUs()
         {
+            ViewBag.Message = "Your application description page.";
+            ViewBag.FullPageIntro = false;
+            ViewBag.RenderCarousel = false;
+            return View();
+        }
+
+        public IActionResult Contact()
+        {
+            ViewBag.Message = "Your contact page.";
+            ViewBag.FullPageIntro = false;
+            ViewBag.RenderCarousel = false;
             return View();
         }
 
