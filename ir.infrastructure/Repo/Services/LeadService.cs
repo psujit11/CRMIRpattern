@@ -6,6 +6,9 @@ using ir.infrastructure.DTOs.OpportunityDtos;
 using ir.infrastructure.Repo.Infrastructure;
 using ir.infrastructure.Validation;
 using Ir.Persistance;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace ir.infrastructure.Repo.Services
@@ -15,11 +18,15 @@ namespace ir.infrastructure.Repo.Services
         private readonly AppDbContext _dbContext;
         private readonly Mapper _mapper;
         private readonly IValidator<Lead> _validator;
-        public LeadService(AppDbContext dbContext, IMapper mapper,IValidator<Lead> validator)
+        private readonly UserManager<ApplicationUser> _userManager;
+        private readonly IHttpContextAccessor _httpContextAccessor;
+        public LeadService(AppDbContext dbContext, IMapper mapper,IValidator<Lead> validator, UserManager<ApplicationUser> userManager, IHttpContextAccessor httpContextAccessor)
         {
             _dbContext = dbContext;
             _mapper = (Mapper)mapper;
             _validator = validator;
+            _userManager = userManager;
+            _httpContextAccessor = httpContextAccessor;
         }
         public async Task<LeadGetDto> AddAsync(LeadCreateDto createDto)
         {
@@ -31,24 +38,43 @@ namespace ir.infrastructure.Repo.Services
             {
                 throw new FluentValidation.ValidationException(validationResult.Errors);
             }
+            var currentUser = await _userManager.GetUserAsync(_httpContextAccessor.HttpContext.User);
+            if (currentUser == null)
+            {
+                throw new Exception("No user is currently logged in.");
+            }
+            lead.ApplicationUserId = currentUser.Id;
             _dbContext.Leads.Add(lead);
+            await _dbContext.SaveChangesAsync();
+            
+            return _mapper.Map<LeadGetDto>(lead);
+        }
+        public async Task<LeadGetDto> AssignLeadToUserAsync(int leadId, string userId)
+        {
+            var lead = await _dbContext.Leads.FindAsync(leadId);
+            if (lead == null)
+            {
+                throw new Exception("Lead not found.");
+            }
+
+            
+            lead.ApplicationUserId = userId;
             await _dbContext.SaveChangesAsync();
             return _mapper.Map<LeadGetDto>(lead);
         }
-
-        /*public async Task AssignToSalesRepresentative(AssignSalesRepresentativeDto dto)
+        public async Task AssignLeadToUserByEmailAsync(int leadId, AssignLeadDto assignLeadDto)
         {
-            var lead = await _dbContext.Leads.SingleOrDefaultAsync(l => l.Id == dto.LeadId);
-            if (lead != null)
+            var user = await _userManager.FindByEmailAsync(assignLeadDto.UserEmail);
+            if (user == null)
             {
-                _mapper.Map(dto, lead);
-                await _dbContext.SaveChangesAsync();
+                throw new Exception("User not found.");
             }
-            else
-            {
-                throw new Exception("Lead not found");
-            }
-        }*/
+
+            // Use the user's ID to assign the lead to the user
+            await AssignLeadToUserAsync(leadId, user.Id);
+        }
+
+
 
 
         public async Task DeleteAsync(int id)
@@ -118,6 +144,20 @@ namespace ir.infrastructure.Repo.Services
             lead.LeadStatus = dto.NewStatus; 
             await _dbContext.SaveChangesAsync();
         }
+
+        public async Task AssignCustomerToLeadAsync(AssignCustomerToLeadDto dto)
+        {
+            var lead = await _dbContext.Leads.FindAsync(dto.LeadId);
+            if (lead == null)
+            {
+                throw new Exception("Lead not found.");
+            }
+
+            _mapper.Map(dto, lead);
+            await _dbContext.SaveChangesAsync();
+            
+        }
+            
 
     }
 }

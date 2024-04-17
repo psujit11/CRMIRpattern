@@ -14,6 +14,7 @@ using Microsoft.OpenApi.Models;
 using ir.infrastructure.Repo.Services;
 using ir.infrastructure.DTOs.User;
 using Microsoft.AspNetCore.Authorization;
+using System.Data;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -183,11 +184,17 @@ async (ILeadService leadService, LeadCreateDto createDto) =>
     return await leadService.AddAsync(createDto);
 });
 
+app.MapPut("leads/assign to/{id}",
+    [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Roles = "Admin, User")]
+async (ILeadService leadService, int id, AssignLeadDto assigndto) => await leadService.AssignLeadToUserByEmailAsync(id, assigndto));
+
+
 app.MapPut("/leads/{id}", 
     [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Roles = "Admin, User")] 
 async (ILeadService leadService, int id, LeadCreateDto updateDto) =>
 {
-    return await leadService.UpdateAsync(id, updateDto);
+     await leadService.UpdateAsync(id, updateDto);
+     return Results.Ok($"{id}Lead is successfully updated");
 });
 
 app.MapDelete("/leads/{id}",
@@ -195,7 +202,7 @@ app.MapDelete("/leads/{id}",
 async (ILeadService leadService, int id) =>
 {
     await leadService.DeleteAsync(id);
-    return Results.Ok();
+    return Results.Ok($"{id} is deleted.");
 });
 
 app.MapPut("/leads/{id}/status",
@@ -204,10 +211,18 @@ async (ILeadService leadService, int id, UpdateLeadStatusDto updateDto) =>
 {
     updateDto.LeadId = id; 
     await leadService.UpdateLeadStatus(updateDto);
-    return Results.Ok();
+    return Results.Ok($"{id}lead's status is updated successfully");
 });
 
-// Opportunity API Endpoints
+app.MapPut("/leads/assigncustomerid/{id}",
+    [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Roles = "Admin, User")]
+async (ILeadService leadService, AssignCustomerToLeadDto assignCustomerDto) =>
+    {
+        await leadService.AssignCustomerToLeadAsync(assignCustomerDto);
+        return Results.Ok($"{assignCustomerDto.LeadId} Lead is assigned to Customer {assignCustomerDto.CustomerId}" );
+    });
+
+// Opportunity API Endpoints 
 app.MapGet("/opportunities",
     [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Roles = "Admin, User")]
 async (IOpportunityService opportunityService) =>
