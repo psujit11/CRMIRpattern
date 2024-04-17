@@ -13,6 +13,12 @@ namespace Ir.Persistance
         public DbSet<Opportunity> Opportunities { get; set; }
 
         public DbSet<ApplicationUser> ApplicationUsers { get; set; }
-
+        /*protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<Lead>()
+                .HasOne(l => l.ApplicationUser)
+                .WithMany()
+                .HasForeignKey(l => l.ApplicationUserId);
+        }*/
     }
 }

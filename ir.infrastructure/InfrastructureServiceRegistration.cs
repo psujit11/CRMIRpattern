@@ -17,6 +17,7 @@ namespace ir.infrastructure
             services.AddScoped<ICustomerService, CustomerService>();
             services.AddScoped<ILeadService, LeadService>();
             services.AddScoped<IOpportunityService, OpportunityService>();
+            services.AddHttpContextAccessor();
             return services;
         }
     }

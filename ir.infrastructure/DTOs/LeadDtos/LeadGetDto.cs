@@ -10,9 +10,7 @@ namespace ir.infrastructure.DTOs.LeadDtos
         
         
 
-        /*public int UserId { get; set; }
-
-        public User User { get; set; }*/
+        public string ApplicationUserId { get; set; }
 
         public LeadStatus LeadStatus { get; set; }
         //public ICollection<Opportunity> Opportunities { get; set; }

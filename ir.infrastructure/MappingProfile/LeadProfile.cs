@@ -8,12 +8,17 @@ namespace ir.infrastructure.MappingProfile
     {
         public LeadProfile()
         {
-            CreateMap<LeadCreateDto, Lead>().ReverseMap();
+           
+            CreateMap<LeadCreateDto, Lead>()
+            .ForMember(dest => dest.CustomerId, opt => opt.Ignore())
+            .ReverseMap();
             CreateMap<LeadGetDto, Lead>().ReverseMap();
             CreateMap<UpdateLeadStatusDto, Lead>().ReverseMap();
             CreateMap<LeadListDto,Lead>().ReverseMap();
             //CreateMap<AssignSalesRepresentativeDto, Lead>().ReverseMap();
-
+            CreateMap<AssignCustomerToLeadDto, Lead>()
+            .ForMember(dest => dest.CustomerId, opt => opt.MapFrom(src => src.CustomerId));
+            
         }
     }
 }
