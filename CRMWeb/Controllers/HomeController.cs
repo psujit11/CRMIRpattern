@@ -18,8 +18,27 @@ namespace CRMWeb.Controllers
             return View();
         }
 
-        public IActionResult Privacy()
+        public IActionResult Customers()
         {
+            ViewBag.Message = "Customers Information Page";
+            ViewBag.FullPageIntro = false;
+            ViewBag.RenderCarousel = false;
+            return View();
+        }
+
+        public IActionResult Leads()
+        {
+            ViewBag.Message = "Lead Management Page";
+            ViewBag.FullPageIntro = false;
+            ViewBag.RenderCarousel = false;
+            return View();
+        }
+
+        public IActionResult Opportunities()
+        {
+            ViewBag.Message = "Opportunities Management Page";
+            ViewBag.FullPageIntro = false;
+            ViewBag.RenderCarousel = false;
             return View();
         }
 
