@@ -1,20 +1,7 @@
-using CRMWeb;
-using System.Security.Claims;
-
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
-builder.Services.AddHttpContextAccessor();
-builder.Services.AddHttpClient();
-builder.Services.AddWebServiceRegistration(builder.Configuration);
-builder.Services.AddAuthorization(options =>
-{
-    options.AddPolicy("Admin", policy => policy.RequireClaim(ClaimTypes.Role, "Admin"));
-    options.AddPolicy("User", policy => policy.RequireClaim(ClaimTypes.Role, "User"));
-    options.AddPolicy("SalesManager", policy => policy.RequireClaim(ClaimTypes.Role, "SalesManager"));
-});
-
 
 var app = builder.Build();
 

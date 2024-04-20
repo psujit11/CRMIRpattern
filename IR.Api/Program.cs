@@ -112,6 +112,7 @@ async (IUserAccount userAccount, UserDto userdto) =>
 
     );
 
+#region  Customers
 app.MapGet("/customers",
     [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Roles = "Admin , User")]
 async (ICustomerService customerService) =>
@@ -154,12 +155,9 @@ async (ICustomerService customerService, int id) =>
 {
     return await customerService.GetLeadsofCustomersByIdAsync(id);
 });
+#endregion
 
-
-
-
-
-
+#region Leads
 app.MapGet("/leads", async (ILeadService leadService) =>
 {
     return await leadService.GetAllAsync();
@@ -206,7 +204,9 @@ async (ILeadService leadService, int id, UpdateLeadStatusDto updateDto) =>
     await leadService.UpdateLeadStatus(updateDto);
     return Results.Ok();
 });
+#endregion
 
+#region Opportunity
 // Opportunity API Endpoints
 app.MapGet("/opportunities",
     [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Roles = "Admin, User")]
@@ -243,6 +243,8 @@ async (IOpportunityService opportunityService, int id) =>
     await opportunityService.DeleteAsync(id);
     return Results.Ok();
 });
+#endregion
+
 app.Run();
 
 

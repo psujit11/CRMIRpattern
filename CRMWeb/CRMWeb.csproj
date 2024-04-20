@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <TargetFramework>net8.0</TargetFramework>
-    <Nullable>disable</Nullable>
+    <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>
 
@@ -12,11 +12,19 @@
     <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="8.0.4" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="8.0.3" />
     <PackageReference Include="Microsoft.IdentityModel.Tokens" Version="7.5.1" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
     <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="7.5.1" />
   </ItemGroup>
 
   <ItemGroup>
     <Folder Include="Content\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\IR.Api\IR.Api.csproj" />
+    <ProjectReference Include="..\ir.domain\ir.domain.csproj" />
+    <ProjectReference Include="..\Ir.Persistance\Ir.Persistance.csproj" />
+    <ProjectReference Include="..\ir.shared\ir.shared.csproj" />
   </ItemGroup>
 
 </Project>
