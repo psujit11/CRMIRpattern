@@ -20,17 +20,25 @@ namespace CRMWeb.Controllers
             return View();
         }
 
-        public IActionResult AboutUs()
+        public IActionResult Customers()
         {
-            ViewBag.Message = "Your application description page.";
+            ViewBag.Message = "Customers Information Page";
             ViewBag.FullPageIntro = false;
             ViewBag.RenderCarousel = false;
             return View();
         }
 
-        public IActionResult Contact()
+        public IActionResult Leads()
         {
-            ViewBag.Message = "Your contact page.";
+            ViewBag.Message = "Lead Management Page";
+            ViewBag.FullPageIntro = false;
+            ViewBag.RenderCarousel = false;
+            return View();
+        }
+
+        public IActionResult Opportunities()
+        {
+            ViewBag.Message = "Opportunities Management Page";
             ViewBag.FullPageIntro = false;
             ViewBag.RenderCarousel = false;
             return View();
