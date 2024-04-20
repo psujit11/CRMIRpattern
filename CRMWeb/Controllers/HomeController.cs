@@ -20,29 +20,21 @@ namespace CRMWeb.Controllers
             return View();
         }
 
-        public IActionResult Customers()
+        public IActionResult AboutUs()
         {
-            ViewBag.Message = "Customers Information Page";
+            ViewBag.Message = "About Us Page";
             ViewBag.FullPageIntro = false;
             ViewBag.RenderCarousel = false;
             return View();
         }
 
-        public IActionResult Leads()
+        public IActionResult Contact()
         {
-            ViewBag.Message = "Lead Management Page";
+            ViewBag.Message = "Contact Page";
             ViewBag.FullPageIntro = false;
             ViewBag.RenderCarousel = false;
             return View();
-        }
-
-        public IActionResult Opportunities()
-        {
-            ViewBag.Message = "Opportunities Management Page";
-            ViewBag.FullPageIntro = false;
-            ViewBag.RenderCarousel = false;
-            return View();
-        }
+        }       
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()

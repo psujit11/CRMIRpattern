@@ -24,26 +24,18 @@ namespace CRMWeb.Controllers
         [HttpGet]
         public IActionResult Register()
         {
-            return RedirectToAction("Login", "LoginRegister");
+            return View();
         }
 
         [HttpPost]
-        public async Task<IActionResult> Register(UserDto registerUser, string role)
+        public async Task<IActionResult> Register(UserDto registerUser)
         {
             try
             {
                 if (ModelState.IsValid)
                 {
-                    if (role == "User" || role == "Admin" || role == "SalesManager")
-                    {
-                        var result = await _loginRegister.RegisterAsync(registerUser, role);
-                        return RedirectToAction("Index", "Home");
-                    }
-                    else
-                    {
-                        ModelState.AddModelError("Role", "Role must be User or Admin or SalesManager");
-                        return RedirectToAction(nameof(Login));
-                    }
+                   var result = await _loginRegister.RegisterAsync(registerUser);
+                    return RedirectToAction("Index", "Home");
                 }
                 else
                 {

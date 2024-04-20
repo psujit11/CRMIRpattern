@@ -55,7 +55,7 @@ namespace CRMWeb.Services
             }
         }
 
-        public async Task<string> RegisterAsync(UserDto registerUser, string role)
+        public async Task<string> RegisterAsync(UserDto registerUser)
         {
             try
             {
@@ -64,7 +64,7 @@ namespace CRMWeb.Services
                                                                                                 token);
                 var json = JsonConvert.SerializeObject(registerUser);
                 var data = new StringContent(json, Encoding.UTF8, "application/json");
-                var response = await _httpClient.PostAsync($"{_apiUrlOptions.RegisterUrl}Register?role={role}",
+                var response = await _httpClient.PostAsync($"{_apiUrlOptions.RegisterUrl}",
                                                            data);
 
                 if (response.IsSuccessStatusCode)

@@ -7,6 +7,13 @@
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/CRMWeb.styles.css" asp-append-version="true" />
+    <style>
+        body{
+            background-image: url('~/Content/img/svg/bgWallpaper.jpg');
+            background-size: cover;
+            background-position: center;
+        }
+    </style>
 </head>
 <body>
     <header>
@@ -23,17 +30,15 @@
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Customers">Customers</a>
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="AboutUs">About Us</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Leads">Leads</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Opportunities">Opportunities</a>
-                        </li>
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Contact">Contact</a>
+                        </li>                        
                     </ul>
                     <p>
-                        <a asp-controller="LoginRegister" asp-action="Login" class="btn btn-secondary">Login/Register</a>
+                        <a asp-controller="LoginRegister" asp-action="Login" class="btn btn-secondary">Login</a>
+                        <a asp-controller="LoginRegister" asp-action="Register" class="btn btn-secondary">Register</a>
                     </p>
                 </div>
             </div>
