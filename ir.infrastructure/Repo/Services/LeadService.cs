@@ -157,7 +157,20 @@ namespace ir.infrastructure.Repo.Services
             await _dbContext.SaveChangesAsync();
             
         }
-            
 
+        public async Task<IEnumerable<LeadGetDtoWithOpportunities>> GetAllLeadsWithOpportunitiesAsync()
+        {
+            var leads = await _dbContext.Leads.Include(l => l.Opportunities).ToListAsync();
+
+            // Map each lead to LeadWithOpportunitiesDto
+            var leadsWithOpportunitiesDto = leads.Select(lead =>
+            {
+                var leadDto = _mapper.Map<LeadGetDtoWithOpportunities>(lead);
+                leadDto.OpportunityNames = lead.Opportunities.Select(opportunity => opportunity.OpportunityName).ToList();
+                return leadDto;
+            });
+
+            return leadsWithOpportunitiesDto;
+        }
     }
 }

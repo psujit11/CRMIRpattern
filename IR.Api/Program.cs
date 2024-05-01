@@ -156,10 +156,10 @@ async (ICustomerService customerService, int id) =>
     return await customerService.GetLeadsofCustomersByIdAsync(id);
 });
 
-
-
-
-
+app.MapGet("/leadswithopportunities" , async (ILeadService leadService)=>
+{
+    return await leadService.GetAllLeadsWithOpportunitiesAsync();
+});
 
 app.MapGet("/leads", async (ILeadService leadService) =>
 {

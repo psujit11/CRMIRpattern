@@ -18,7 +18,9 @@ namespace ir.infrastructure.MappingProfile
             //CreateMap<AssignSalesRepresentativeDto, Lead>().ReverseMap();
             CreateMap<AssignCustomerToLeadDto, Lead>()
             .ForMember(dest => dest.CustomerId, opt => opt.MapFrom(src => src.CustomerId));
-            
+            CreateMap<Lead, LeadGetDtoWithOpportunities>()
+            .ForMember(dest => dest.OpportunityNames, opt => opt.MapFrom(src => src.Opportunities.Select(o => o.OpportunityName)));
+
         }
     }
 }

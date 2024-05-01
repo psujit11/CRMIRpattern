@@ -11,6 +11,7 @@ namespace ir.infrastructure.Repo.Infrastructure
         Task AssignCustomerToLeadAsync(AssignCustomerToLeadDto dto);
         Task<IEnumerable<OpportunityListDto>> GetLeadWithOpportunitiesByIdAsync(int id);
         Task UpdateLeadStatus(UpdateLeadStatusDto dto);
+        Task<IEnumerable<LeadGetDtoWithOpportunities>> GetAllLeadsWithOpportunitiesAsync();
     }
 }
  
